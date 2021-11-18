@@ -57,8 +57,8 @@ function SignIn() {
 
       <Formik
         initialValues={{
-          email: "demo@bootlab.io",
-          password: "unsafepassword",
+          email: "spring0506@gmail.com",
+          password: "12341234",
           submit: false,
         }}
         validationSchema={Yup.object().shape({
@@ -71,7 +71,7 @@ function SignIn() {
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
             await dispatch(
-              signIn({ email: values.email, password: values.password })
+              signIn({ user_email: values.email, password: values.password })
             );
             history.push("/private");
           } catch (error) {

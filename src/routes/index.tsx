@@ -4,8 +4,6 @@ import React from "react";
 import async from "../components/Async";
 
 import {
-  BookOpen,
-  Briefcase,
   Calendar as CalendarIcon,
   CheckSquare,
   CreditCard,
@@ -15,14 +13,10 @@ import {
   List,
   Map,
   Monitor,
-  ShoppingCart,
   PieChart,
   Sliders,
   Users,
 } from "react-feather";
-
-// All pages that rely on 3rd party components (other than Material-UI) are
-// loaded asynchronously, to keep the initial JS bundle to a minimum size
 
 // Guards
 import AuthGuard from "../components/AuthGuard";
@@ -41,19 +35,9 @@ import Avatars from "../pages/components/Avatars";
 import Badges from "../pages/components/Badges";
 import Buttons from "../pages/components/Buttons";
 import Cards from "../pages/components/Cards";
-import Chips from "../pages/components/Chips";
-import Dialogs from "../pages/components/Dialogs";
-import Lists from "../pages/components/Lists";
-import Menus from "../pages/components/Menus";
-import Pagination from "../pages/components/Pagination";
-import Progress from "../pages/components/Progress";
-import Snackbars from "../pages/components/Snackbars";
-import Tooltips from "../pages/components/Tooltips";
 
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Default"));
-const Analytics = async(() => import("../pages/dashboards/Analytics"));
-const SaaS = async(() => import("../pages/dashboards/SaaS"));
 
 // Forms components
 import SelectionCtrls from "../pages/forms/SelectionControls";
@@ -69,14 +53,10 @@ import MaterialIcons from "../pages/icons/MaterialIcons";
 const FeatherIcons = async(() => import("../pages/icons/FeatherIcons"));
 
 // Pages components
-import Blank from "../pages/pages/Blank";
 import InvoiceDetails from "../pages/pages/InvoiceDetails";
 import InvoiceList from "../pages/pages/InvoiceList";
-import Orders from "../pages/pages/Orders";
 import Pricing from "../pages/pages/Pricing";
 import Settings from "../pages/pages/Settings";
-import Projects from "../pages/pages/Projects";
-import Chat from "../pages/pages/Chat";
 const Profile = async(() => import("../pages/pages/Profile"));
 const Tasks = async(() => import("../pages/pages/Tasks"));
 const Calendar = async(() => import("../pages/pages/Calendar"));
@@ -92,17 +72,7 @@ const Chartjs = async(() => import("../pages/charts/Chartjs"));
 const GoogleMaps = async(() => import("../pages/maps/GoogleMaps"));
 const VectorMaps = async(() => import("../pages/maps/VectorMaps"));
 
-// Documentation
-import Welcome from "../pages/docs/Welcome";
-import GettingStarted from "../pages/docs/GettingStarted";
-import EnvironmentVariables from "../pages/docs/EnvironmentVariables";
-import Deployment from "../pages/docs/Deployment";
-import Theming from "../pages/docs/Theming";
-import StateManagement from "../pages/docs/StateManagement";
-import APICalls from "../pages/docs/APICalls";
-import ESLintAndPrettier from "../pages/docs/ESLintAndPrettier";
-import Support from "../pages/docs/Support";
-import Changelog from "../pages/docs/Changelog";
+import Auth from "../hoc/auth";
 
 // Landing
 import Landing from "../pages/presentation/Landing";
@@ -110,102 +80,56 @@ import Landing from "../pages/presentation/Landing";
 // Protected routes
 import ProtectedPage from "../pages/protected/ProtectedPage";
 
-import Auth from "../hoc/auth";
-
 const dashboardsRoutes = {
-  id: "Dashboard",
-  path: "/dashboard",
-  header: "Pages",
+  id: "메인",
+  path: "/dashboard/default",
   icon: <Sliders />,
   containsHome: true,
-  children: [
-    {
-      path: "/dashboard/default",
-      name: "Default",
-      component: Auth(Default, false),
-    },
-    {
-      path: "/dashboard/analytics",
-      name: "Analytics",
-      component: Analytics,
-    },
-    {
-      path: "/dashboard/saas",
-      name: "SaaS",
-      component: SaaS,
-    },
-  ],
-  component: null,
+  component: Auth(Default, true),
+  children: null,
 };
 
 const pagesRoutes = {
-  id: "Pages",
+  id: "서비스 관리",
   path: "/pages",
   icon: <Layout />,
   children: [
     {
-      path: "/pages/profile",
-      name: "Profile",
-      component: Profile,
-    },
-    {
       path: "/pages/settings",
-      name: "Settings",
+      name: "기관 정보관리",
       component: Settings,
     },
     {
+      path: "/pages/profile",
+      name: "플랜 현황",
+      component: Profile,
+    },
+    {
       path: "/pages/pricing",
-      name: "Pricing",
+      name: "비밀번호 변경",
       component: Pricing,
-    },
-    {
-      path: "/pages/chat",
-      name: "Chat",
-      component: Chat,
-    },
-    {
-      path: "/pages/blank",
-      name: "Blank Page",
-      component: Blank,
     },
   ],
   component: null,
 };
 
-const projectsRoutes = {
-  id: "Projects",
-  path: "/projects",
-  icon: <Briefcase />,
-  badge: "8",
-  component: Projects,
-  children: null,
-};
-
 const invoiceRoutes = {
-  id: "Invoices",
+  id: "사용자관리",
   path: "/invoices",
   icon: <CreditCard />,
   children: [
     {
       path: "/invoices",
-      name: "List",
+      name: "사용자 계정관리",
       component: InvoiceList,
     },
     {
       path: "/invoices/detail",
-      name: "Details",
+      name: "탈퇴 계정관리",
       component: InvoiceDetails,
     },
   ],
   component: null,
-};
-
-const orderRoutes = {
-  id: "Orders",
-  path: "/orders",
-  icon: <ShoppingCart />,
-  component: Orders,
-  children: null,
 };
 
 const tasksRoutes = {
@@ -260,80 +184,39 @@ const authRoutes = {
 };
 
 const componentsRoutes = {
-  id: "Components",
+  id: "데이터 현황",
   path: "/components",
-  header: "Elements",
   icon: <Grid />,
   children: [
     {
-      path: "/components/accordion",
-      name: "Accordion",
-      component: Accordion,
-    },
-    {
       path: "/components/alerts",
-      name: "Alerts",
+      name: "지역별 데이터 현황",
       component: Alerts,
     },
     {
+      path: "/components/accordion",
+      name: "차량별 데이터 현황",
+      component: Accordion,
+    },
+    {
       path: "/components/avatars",
-      name: "Avatars",
+      name: "센서별 데이터 현황",
       component: Avatars,
     },
     {
       path: "/components/badges",
-      name: "Badges",
+      name: "공개/판매 데이터 현황",
       component: Badges,
     },
     {
       path: "/components/buttons",
-      name: "Buttons",
+      name: "예외 상황 데이터 현황",
       component: Buttons,
     },
     {
       path: "/components/cards",
-      name: "Cards",
+      name: "수동 추가 데이터 관리",
       component: Cards,
-    },
-    {
-      path: "/components/chips",
-      name: "Chips",
-      component: Chips,
-    },
-    {
-      path: "/components/dialogs",
-      name: "Dialogs",
-      component: Dialogs,
-    },
-    {
-      path: "/components/lists",
-      name: "Lists",
-      component: Lists,
-    },
-    {
-      path: "/components/menus",
-      name: "Menus",
-      component: Menus,
-    },
-    {
-      path: "/components/pagination",
-      name: "Pagination",
-      component: Pagination,
-    },
-    {
-      path: "/components/progress",
-      name: "Progress",
-      component: Progress,
-    },
-    {
-      path: "/components/snackbars",
-      name: "Snackbars",
-      component: Snackbars,
-    },
-    {
-      path: "/components/tooltips",
-      name: "Tooltips",
-      component: Tooltips,
     },
   ],
   component: null,
@@ -403,18 +286,18 @@ const tablesRoutes = {
 };
 
 const iconsRoutes = {
-  id: "Icons",
+  id: "기기 관리",
   path: "/icons",
   icon: <Heart />,
   children: [
     {
       path: "/icons/material-icons",
-      name: "Material Icons",
+      name: "기기 관리",
       component: MaterialIcons,
     },
     {
       path: "/icons/feather-icons",
-      name: "Feather Icons",
+      name: "전체 기관 기기현황",
       component: FeatherIcons,
     },
   ],
@@ -453,71 +336,7 @@ const landingRoutes = {
   path: "/",
   header: "Docs",
   icon: <Monitor />,
-  component: Landing,
-  children: null,
-};
-
-const documentationRoutes = {
-  id: "Documentation",
-  path: "/documentation",
-  header: "Material App",
-  icon: <BookOpen />,
-  children: [
-    {
-      path: "/documentation/welcome",
-      name: "Welcome",
-      component: Welcome,
-    },
-    {
-      path: "/documentation/getting-started",
-      name: "Getting Started",
-      component: GettingStarted,
-    },
-    {
-      path: "/documentation/environment-variables",
-      name: "Environment Variables",
-      component: EnvironmentVariables,
-    },
-    {
-      path: "/documentation/deployment",
-      name: "Deployment",
-      component: Deployment,
-    },
-    {
-      path: "/documentation/theming",
-      name: "Theming",
-      component: Theming,
-    },
-    {
-      path: "/documentation/state-management",
-      name: "State Management",
-      component: StateManagement,
-    },
-    {
-      path: "/documentation/api-calls",
-      name: "API Calls",
-      component: APICalls,
-    },
-    {
-      path: "/documentation/eslint-and-prettier",
-      name: "ESLint & Prettier",
-      component: ESLintAndPrettier,
-    },
-    {
-      path: "/documentation/support",
-      name: "Support",
-      component: Support,
-    },
-  ],
-  component: null,
-};
-
-const changelogRoutes = {
-  id: "Changelog",
-  path: "/changelog",
-  badge: "v2.0.3",
-  icon: <List />,
-  component: Changelog,
+  component: Auth(Landing, true),
   children: null,
 };
 
@@ -534,19 +353,15 @@ const protectedPageRoutes = {
 export const dashboardLayoutRoutes = [
   dashboardsRoutes,
   pagesRoutes,
-  projectsRoutes,
-  orderRoutes,
   invoiceRoutes,
+  iconsRoutes,
+  componentsRoutes,
   tasksRoutes,
   calendarRoutes,
-  componentsRoutes,
   chartRoutes,
   formsRoutes,
   tablesRoutes,
-  iconsRoutes,
   mapsRoutes,
-  documentationRoutes,
-  changelogRoutes,
 ];
 
 // Routes using the Auth layout
@@ -562,18 +377,14 @@ export const protectedRoutes = [protectedPageRoutes];
 export const sidebarRoutes = [
   dashboardsRoutes,
   pagesRoutes,
-  projectsRoutes,
-  orderRoutes,
   invoiceRoutes,
+  iconsRoutes,
+  componentsRoutes,
   tasksRoutes,
   calendarRoutes,
   authRoutes,
-  componentsRoutes,
   chartRoutes,
   formsRoutes,
   tablesRoutes,
-  iconsRoutes,
   mapsRoutes,
-  documentationRoutes,
-  changelogRoutes,
 ];

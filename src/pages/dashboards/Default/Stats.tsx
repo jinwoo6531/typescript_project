@@ -5,11 +5,8 @@ import {
   Box,
   Card as MuiCard,
   CardContent as MuiCardContent,
-  Chip as MuiChip,
   Typography as MuiTypography,
 } from "@material-ui/core";
-
-import { rgba } from "polished";
 
 import { spacing } from "@material-ui/system";
 
@@ -25,37 +22,6 @@ const CardContent = styled(MuiCardContent)`
   }
 `;
 
-const Chip = styled(MuiChip)`
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  height: 20px;
-  padding: 4px 0;
-  font-size: 85%;
-  background-color: ${(props) => props.theme.palette.secondary.main};
-  color: ${(props) => props.theme.palette.common.white};
-  margin-bottom: ${(props) => props.theme.spacing(4)}px;
-
-  span {
-    padding-left: ${(props) => props.theme.spacing(2)}px;
-    padding-right: ${(props) => props.theme.spacing(2)}px;
-  }
-`;
-
-const Percentage = styled(MuiTypography)<{
-  percentagecolor: string;
-  mb: number;
-}>`
-  span {
-    color: ${(props) => props.percentagecolor};
-    font-weight: ${(props) => props.theme.typography.fontWeightBold};
-    background: ${(props) => rgba(props.percentagecolor, 0.1)};
-    padding: 2px;
-    border-radius: 3px;
-    margin-right: ${(props) => props.theme.spacing(2)}px;
-  }
-`;
-
 type StatsPropsType = {
   title: string;
   amount: string;
@@ -64,13 +30,7 @@ type StatsPropsType = {
   percentagecolor: string;
 };
 
-const Stats: React.FC<StatsPropsType> = ({
-  title,
-  amount,
-  chip,
-  percentageText,
-  percentagecolor,
-}) => {
+const Stats: React.FC<StatsPropsType> = ({ title }) => {
   return (
     <Card mb={3}>
       <CardContent>
@@ -78,17 +38,25 @@ const Stats: React.FC<StatsPropsType> = ({
           {title}
         </Typography>
         <Typography variant="h3" mb={3}>
-          <Box fontWeight="fontWeightRegular">{amount}</Box>
+          <Box fontWeight="fontWeightRegular">이미지</Box>
         </Typography>
-        <Percentage
-          variant="subtitle2"
-          mb={4}
-          color="textSecondary"
-          percentagecolor={percentagecolor}
-        >
-          <span>{percentageText}</span> Since last week
-        </Percentage>
-        <Chip label={chip} />
+      </CardContent>
+
+      <CardContent>
+        <div style={{ display: "flex" }}>
+          <div>
+            <span>가입 날짜</span>
+            <span>2021년 10월 11일</span>
+          </div>
+          <div>
+            <span>가입 상태</span>
+            <span>이용중</span>
+          </div>
+          <div>
+            <span>사용 플랜</span>
+            <span>프로 요금제(무제한)</span>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

@@ -1,15 +1,15 @@
 export type SignInType = {
-  email: string;
+  user_email: string;
   password: string;
 };
 
 export type SignUpType = {
   name: string;
   company: string;
-  email: string;
+  user_email: string;
   password: string;
 };
 
 export type ResetPasswordType = {
-  email: string;
+  user_email: string;
 };
