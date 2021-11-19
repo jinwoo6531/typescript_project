@@ -13,11 +13,13 @@ export function signIn(credentials: SignInType) {
 
     return authSignIn(credentials)
       .then((response: any) => {
+        console.log("넘어옴", response);
+
         dispatch({
           type: types.AUTH_SIGN_IN_SUCCESS,
-          id: response.id,
-          email: response.email,
-          name: response.name,
+          company_code: response.company_code,
+          company_name: response.company_name,
+          company_type: response.type,
         });
       })
       .catch((error) => {
@@ -63,7 +65,7 @@ export function resetPassword(credentials: ResetPasswordType) {
       .then((response: any) => {
         dispatch({
           type: types.AUTH_RESET_PASSWORD_SUCCESS,
-          email: response.email,
+          user_email: response.email,
         });
       })
       .catch((error) => {

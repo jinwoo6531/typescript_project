@@ -18,6 +18,8 @@ import NotificationsDropdown from "./NotificationsDropdown";
 import MessagesDropdown from "./MessagesDropdown";
 import LanguagesDropdown from "./LanguagesDropdown";
 import UserDropdown from "./UserDropdown";
+import { useSelector } from "react-redux";
+import { AppStateType } from "../redux/reducers";
 
 const AppBar = styled(MuiAppBar)`
   background: ${(props) => props.theme.header.background};
@@ -81,41 +83,50 @@ type AppBarProps = {
   onDrawerToggle: React.MouseEventHandler<HTMLElement>;
 };
 
-const AppBarComponent: React.FC<AppBarProps> = ({ onDrawerToggle }) => (
-  <React.Fragment>
-    <AppBar position="sticky" elevation={0}>
-      <Toolbar>
-        <Grid container alignItems="center">
-          <Hidden mdUp>
+const AppBarComponent: React.FC<AppBarProps> = ({ onDrawerToggle }) => {
+  const auth = useSelector((state: AppStateType) => state.authReducer.user);
+
+  return (
+    <React.Fragment>
+      <AppBar position="sticky" elevation={0}>
+        <Toolbar>
+          <Grid container alignItems="center">
+            <Hidden mdUp>
+              <Grid item>
+                <IconButton
+                  color="inherit"
+                  aria-label="Open drawer"
+                  onClick={onDrawerToggle}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Grid>
+            </Hidden>
             <Grid item>
-              <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                onClick={onDrawerToggle}
-              >
-                <MenuIcon />
-              </IconButton>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <Input placeholder="Search topics" />
+              </Search>
             </Grid>
-          </Hidden>
-          <Grid item>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <Input placeholder="Search topics" />
-            </Search>
+            <Grid item xs />
+            <Grid item>
+              {auth && auth ? (
+                <div>{auth.company_name}</div>
+              ) : (
+                <div>로그인을 해주세요.</div>
+              )}
+              <MessagesDropdown />
+              <NotificationsDropdown />
+              <LanguagesDropdown />
+              <UserDropdown />
+            </Grid>
           </Grid>
-          <Grid item xs />
-          <Grid item>
-            <MessagesDropdown />
-            <NotificationsDropdown />
-            <LanguagesDropdown />
-            <UserDropdown />
-          </Grid>
-        </Grid>
-      </Toolbar>
-    </AppBar>
-  </React.Fragment>
-);
+        </Toolbar>
+      </AppBar>
+    </React.Fragment>
+  );
+};
 
 export default withTheme(AppBarComponent);

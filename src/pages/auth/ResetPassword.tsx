@@ -45,11 +45,11 @@ function ResetPassword() {
 
       <Formik
         initialValues={{
-          email: "",
+          user_email: "",
           submit: false,
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string()
+          user_email: Yup.string()
             .email("Must be a valid email")
             .max(255)
             .required("Email is required"),
@@ -58,7 +58,7 @@ function ResetPassword() {
           try {
             await dispatch(
               resetPassword({
-                email: values.email,
+                user_email: values.user_email,
               })
             );
             history.push("/auth/sign-in");
@@ -90,10 +90,10 @@ function ResetPassword() {
               type="email"
               name="email"
               label="Email Address"
-              value={values.email}
-              error={Boolean(touched.email && errors.email)}
+              value={values.user_email}
+              error={Boolean(touched.user_email && errors.user_email)}
               fullWidth
-              helperText={touched.email && errors.email}
+              helperText={touched.user_email && errors.user_email}
               onBlur={handleBlur}
               onChange={handleChange}
               my={3}

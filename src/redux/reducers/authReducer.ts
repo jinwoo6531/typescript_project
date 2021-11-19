@@ -1,9 +1,9 @@
 import * as types from "../../constants";
 
 export type UserType = {
-  id?: string;
-  email?: string;
-  name?: string;
+  company_code?: string;
+  company_name?: string;
+  company_type?: string;
 };
 
 export type AuthType = {
@@ -19,9 +19,9 @@ export default function reducer(
       return {
         ...state,
         user: {
-          id: actions.id,
-          email: actions.email,
-          name: actions.name,
+          company_code: actions.company_code,
+          company_name: actions.company_name,
+          company_type: actions.company_type,
         },
       };
 
