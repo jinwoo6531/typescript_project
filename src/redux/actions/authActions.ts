@@ -13,8 +13,6 @@ export function signIn(credentials: SignInType) {
 
     return authSignIn(credentials)
       .then((response: any) => {
-        console.log("넘어옴", response);
-
         dispatch({
           type: types.AUTH_SIGN_IN_SUCCESS,
           company_code: response.company_code,
