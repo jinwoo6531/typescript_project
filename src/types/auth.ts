@@ -1,3 +1,5 @@
+import { AuthType } from "../redux/reducers/authReducer";
+
 export type SignInType = {
   user_email: string;
   password: string;
@@ -12,4 +14,5 @@ export type SignUpType = {
 
 export type ResetPasswordType = {
   user_email: string;
+  company_code: AuthType;
 };

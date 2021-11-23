@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
 import { Helmet } from "react-helmet-async";
@@ -15,6 +15,7 @@ import {
 } from "@material-ui/core";
 import { spacing } from "@material-ui/system";
 import { Alert as MuiAlert } from "@material-ui/lab";
+import { AppStateType } from "../../redux/reducers";
 
 const Alert = styled(MuiAlert)(spacing);
 
@@ -31,6 +32,7 @@ const Wrapper = styled(Paper)`
 function ResetPassword() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const auth = useSelector((state: AppStateType) => state.authReducer);
 
   return (
     <Wrapper>
@@ -59,6 +61,7 @@ function ResetPassword() {
             await dispatch(
               resetPassword({
                 user_email: values.user_email,
+                company_code: auth.user?.company_code,
               })
             );
             history.push("/auth/sign-in");

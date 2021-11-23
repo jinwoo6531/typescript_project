@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { AuthType } from "../redux/reducers/authReducer";
+import { AppStateType } from "../redux/reducers";
 
 //   /*
 //      예)  option: null -> 누구나 출입이 가능한 페이지 (home)
@@ -22,7 +22,7 @@ export default function (
 ) {
   function AuthenticationCheck(props: any) {
     let history = useHistory();
-    const user = useSelector((state: AuthType) => state.user);
+    const user = useSelector((state: AppStateType) => state.authReducer);
 
     useEffect(() => {
       const token = window.localStorage.getItem("root");
