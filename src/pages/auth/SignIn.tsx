@@ -57,7 +57,7 @@ function SignIn() {
 
       <Formik
         initialValues={{
-          email: "springkong@aspringcloud.com",
+          email: "springcloud@aspringcloud.com",
           password: "12341234",
           submit: false,
         }}
@@ -73,7 +73,7 @@ function SignIn() {
             await dispatch(
               signIn({ user_email: values.email, password: values.password })
             );
-            history.push("/private");
+            history.push("/dashboard/default");
           } catch (error) {
             const message = error.message || "Something went wrong";
 

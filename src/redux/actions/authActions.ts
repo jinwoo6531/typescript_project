@@ -4,8 +4,14 @@ import { SignInType, SignUpType, ResetPasswordType } from "../../types/auth";
 import {
   signIn as authSignIn,
   signUp as authSignUp,
+  signOut as authSignOut,
   resetPassword as authResetPassword,
 } from "../../services/authService";
+import { ThunkDispatch } from "redux-thunk";
+
+type SignOutResponse = {
+  result: number;
+};
 
 export function signIn(credentials: SignInType) {
   return async (dispatch: AppDispatchType) => {
@@ -48,14 +54,27 @@ export function signUp(credentials: SignUpType) {
 }
 
 export function signOut() {
-  return async (dispatch: AppDispatchType) => {
+  return async (dispatch: AppDispatchType): Promise<void> => {
     dispatch({
       type: types.AUTH_SIGN_OUT,
     });
+    return authSignOut().then(
+      (response: SignOutResponse): Promise<void> => {
+        console.log(123213, typeof response);
+
+        if (response.result === 200) {
+          dispatch({
+            type: types.AUTH_SIGN_OUT,
+          });
+          window.localStorage.removeItem("refresh_token");
+          window.localStorage.removeItem("access_token");
+        }
+      }
+    );
   };
 }
 
-export function resetPassword(credentials: ResetPasswordType) {
+export function resetPassword(credentials: any) {
   return async (dispatch: AppDispatchType) => {
     dispatch({ type: types.AUTH_RESET_PASSWORD_REQUEST });
 
@@ -64,6 +83,7 @@ export function resetPassword(credentials: ResetPasswordType) {
         dispatch({
           type: types.AUTH_RESET_PASSWORD_SUCCESS,
           user_email: response.email,
+          company_code: response.company_code,
         });
       })
       .catch((error) => {

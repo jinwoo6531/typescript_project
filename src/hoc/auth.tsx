@@ -15,7 +15,7 @@ import { AppStateType } from "../redux/reducers";
 //           name: actions.name,
 //         },
 
-export default function (
+export default function q(
   SpecificComponent: any,
   option: any,
   adminRoute = null
@@ -25,8 +25,7 @@ export default function (
     const user = useSelector((state: AppStateType) => state.authReducer);
 
     useEffect(() => {
-      const token = window.localStorage.getItem("root");
-      console.log("시작");
+      const token = window.localStorage.getItem("access_token");
       try {
         if (!token) {
           if (option === true) {

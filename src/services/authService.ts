@@ -91,10 +91,9 @@ export function signOut() {
       )
       .then((response) => {
         if (response.status === 200) {
-          resolve(response.data);
-          console.log(response.data);
+          return resolve(response.data);
         }
-        reject(response.data);
+        return reject(response.data);
       })
       .catch((error) => {
         reject(error);
