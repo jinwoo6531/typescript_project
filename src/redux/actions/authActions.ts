@@ -54,23 +54,19 @@ export function signUp(credentials: SignUpType) {
 }
 
 export function signOut() {
-  return async (dispatch: AppDispatchType): Promise<void> => {
+  return async (dispatch: AppDispatchType) => {
     dispatch({
       type: types.AUTH_SIGN_OUT,
     });
-    return authSignOut().then(
-      (response: SignOutResponse): Promise<void> => {
-        console.log(123213, typeof response);
-
-        if (response.result === 200) {
-          dispatch({
-            type: types.AUTH_SIGN_OUT,
-          });
-          window.localStorage.removeItem("refresh_token");
-          window.localStorage.removeItem("access_token");
-        }
+    return authSignOut().then((response: SignOutResponse) => {
+      if (response.result === 200) {
+        dispatch({
+          type: types.AUTH_SIGN_OUT,
+        });
+        window.localStorage.removeItem("refresh_token");
+        window.localStorage.removeItem("access_token");
       }
-    );
+    });
   };
 }
 

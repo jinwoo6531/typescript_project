@@ -76,7 +76,7 @@ export async function refreshSuccess(item: RefreshType) {
 }
 
 export function signOut() {
-  return new Promise((resolve, reject) => {
+  return new Promise<any>((resolve, reject) => {
     const access = window.localStorage.getItem("access_token");
     const refresh = window.localStorage.getItem("refresh_token");
     axios
