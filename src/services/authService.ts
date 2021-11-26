@@ -132,3 +132,25 @@ export function resetPassword(credentials: ResetPasswordType) {
       });
   });
 }
+
+// 비밀번호 변경
+export function changePassword(credentials: any) {
+  return new Promise((resolve, reject) => {
+    const access = window.localStorage.getItem("access_token");
+    axios
+      .post("http://52.141.57.37:8002/accounts/changepassword/", credentials, {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+        reject(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}

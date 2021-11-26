@@ -22,7 +22,7 @@ import {
 import AuthGuard from "../components/AuthGuard";
 
 // Auth components
-import SignIn from "../pages/auth/SignIn";
+import SignIn from "../pages/auth/ChangePassword";
 import SignUp from "../pages/auth/SignUp";
 import ResetPassword from "../pages/auth/ResetPassword";
 import Page404 from "../pages/auth/Page404";

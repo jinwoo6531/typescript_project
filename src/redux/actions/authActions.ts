@@ -1,13 +1,13 @@
+import { AppDispatchType } from "./../../index";
 import * as types from "../../constants";
-import { AppDispatchType } from "../../index";
 import { SignInType, SignUpType, ResetPasswordType } from "../../types/auth";
 import {
   signIn as authSignIn,
   signUp as authSignUp,
   signOut as authSignOut,
+  changePassword as authChangePassword,
   resetPassword as authResetPassword,
 } from "../../services/authService";
-import { ThunkDispatch } from "redux-thunk";
 
 type SignOutResponse = {
   result: number;
@@ -86,5 +86,18 @@ export function resetPassword(credentials: any) {
         dispatch({ type: types.AUTH_RESET_PASSWORD_FAILURE });
         throw error;
       });
+  };
+}
+
+export function changePassword(credentials: any) {
+  return async (dispatch: AppDispatchType) => {
+    dispatch({ type: types.AUTH_CHANGE_PASSWORD_REQUEST });
+    return authChangePassword(credentials).then((response: any) => {
+      dispatch({
+        type: types.AUTH_CHANGE_PASSWORD_SUCCESS,
+        old_password: response.old_password,
+        new_password: response.new_password,
+      });
+    });
   };
 }
