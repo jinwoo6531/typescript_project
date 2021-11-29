@@ -92,7 +92,7 @@ function Default() {
           <Grid justify="space-between" container spacing={6}>
             <Grid item>
               <Typography variant="h3" gutterBottom>
-                {/* {i18n.t("test")} */}
+                {i18n.t("test")}
               </Typography>
             </Grid>
 
