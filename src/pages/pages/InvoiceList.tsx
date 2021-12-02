@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 
@@ -39,6 +39,8 @@ import {
 } from "@material-ui/icons";
 
 import { spacing, SpacingProps } from "@material-ui/system";
+import { useDispatch } from "react-redux";
+import { getComanyList } from "../../redux/actions/companyActions";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -507,6 +509,10 @@ function EnhancedTable() {
 }
 
 function InvoiceList() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getComanyList());
+  }, []);
   return (
     <React.Fragment>
       <Helmet title="Invoices" />

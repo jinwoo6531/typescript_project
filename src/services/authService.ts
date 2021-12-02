@@ -20,7 +20,7 @@ type RefreshType = {
 export function signIn(credentials: SignInType) {
   return new Promise((resolve, reject) => {
     axios
-      .post("http://52.141.57.37:8002/dashboard/login/", credentials, {
+      .post("http://52.141.57.37:8002/dashboard/account/login/", credentials, {
         headers: { Authorization: "" },
       })
       .then((response) => {
@@ -33,6 +33,7 @@ export function signIn(credentials: SignInType) {
             "access_token",
             response.data.access_token
           );
+
           loginSuccess(response.data);
           resolve(response.data);
         }

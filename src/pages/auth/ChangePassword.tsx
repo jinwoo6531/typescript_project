@@ -40,12 +40,12 @@ function ChangePassword() {
     <Wrapper>
       <Helmet title="Sign Up" />
 
-      <Typography component="h1" variant="h3" align="start" gutterBottom>
+      {/* <Typography component="h1" variant="h3" align="start" gutterBottom>
         비밀번호 변경
       </Typography>
       <Typography component="h2" variant="body1" align="start" gutterBottom>
         아래 절차대로 새로운 비밀번호를 입력해 주세요.
-      </Typography>
+      </Typography> */}
 
       <Formik
         initialValues={{
@@ -60,7 +60,7 @@ function ChangePassword() {
             .max(255)
             .required("비밀번호 형식이 잘못되었습니다."),
           confirm_password: Yup.string().when("new_password", {
-            is: (val) => (val && val.length > 0 ? true : false),
+            is: (val: any) => (val && val.length > 0 ? true : false),
             then: Yup.string().oneOf(
               [Yup.ref("new_password")],
               "비밀번호가 일치하지 않습니다."
@@ -111,7 +111,7 @@ function ChangePassword() {
               helperText={touched.old_password && errors.old_password}
               onBlur={handleBlur}
               onChange={handleChange}
-              my={3}
+              // my={3}
             />
             <TextField
               type="password"
@@ -123,7 +123,7 @@ function ChangePassword() {
               helperText={touched.new_password && errors.new_password}
               onBlur={handleBlur}
               onChange={handleChange}
-              my={3}
+              // my={3}
             />
             <TextField
               type="password"
@@ -137,7 +137,7 @@ function ChangePassword() {
               helperText={touched.confirm_password && errors.confirm_password}
               onBlur={handleBlur}
               onChange={handleChange}
-              my={3}
+              // my={3}
             />
             <Grid justify="flex-end" spacing={2} container>
               <Grid item>
