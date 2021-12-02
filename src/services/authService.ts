@@ -40,6 +40,8 @@ export function signIn(credentials: SignInType) {
         reject(response.data);
       })
       .catch((error) => {
+        // console.log(error);
+
         reject(error);
       });
   });
